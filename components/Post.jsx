@@ -90,7 +90,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
         <HiDotsHorizontal className="h-5" />
       </div>
       {/* img */}
-      <img src={img} alt="postImage" className="object-cover w-full" />
+      <img src={img} alt="postImage" className="object-contain h-96 w-full" />
       {/* Buttons */}
       {session && (
         <>
