@@ -50,8 +50,10 @@ const Posts = ({ posts }) => {
   return (
     <div>
       {console.log(dynamicPost)}
-      {dynamic
-        ? dynamicPost.map((post) => (
+      {dynamic ? (
+        <>
+          {console.log("Inside dynamic")}
+          {dynamicPost.map((post) => (
             <Post
               key={post.id}
               id={post.id}
@@ -60,17 +62,20 @@ const Posts = ({ posts }) => {
               img={post.data().image}
               caption={post.data().caption}
             />
-          ))
-        : posts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              username={post.username}
-              userImg={post.profileImg}
-              img={post.image}
-              caption={post.caption}
-            />
           ))}
+        </>
+      ) : (
+        posts.map((post) => (
+          <Post
+            key={post.id}
+            id={post.id}
+            username={post.username}
+            userImg={post.profileImg}
+            img={post.image}
+            caption={post.caption}
+          />
+        ))
+      )}
       {/* {dynamicPost.map((post) => (
         <Post
           key={post.id}
