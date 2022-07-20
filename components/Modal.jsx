@@ -22,7 +22,7 @@ const Modal = () => {
   const captionRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const [dynamic, setdynamic] = useRecoilState(dynamicState);
   const addImageToPost = (e) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
@@ -61,6 +61,7 @@ const Modal = () => {
         });
       }
     );
+    setdynamic(true);
     setopen(false);
     setLoading(false);
     setSelectedFile(null);

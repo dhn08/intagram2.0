@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 
 import { db } from "../firebase";
 import Post from "./Post";
-
+import { useRecoilState } from "recoil";
+import { dynamicState } from "../atoms/dynamicAtoms";
 // const posts = [
 //   {
 //     id: 123,
@@ -33,8 +34,8 @@ const Posts = ({ posts }) => {
   //   );
   //   return unsubscribe;
   // }, [db]);
-  const [dynamicPost, setdynamicPost] = useState(null);
-
+  const [dynamicPost, setdynamicPost] = useState([]);
+  const [dynamic, setdynamic] = useRecoilState(dynamicState);
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts"), orderBy("timestamp", "desc")),
@@ -42,13 +43,14 @@ const Posts = ({ posts }) => {
         setdynamicPost(snapshot.docs);
       }
     );
+    setdynamic(false);
     return unsubscribe;
   }, [db]);
-  console.log(dynamicPost);
+
   return (
     <div>
       {console.log(dynamicPost)}
-      {dynamicPost
+      {dynamic
         ? dynamicPost.map((post) => (
             <Post
               key={post.id}
@@ -69,7 +71,7 @@ const Posts = ({ posts }) => {
               caption={post.caption}
             />
           ))}
-      {/* {posts.map((post) => (
+      {/* {dynamicPost.map((post) => (
         <Post
           key={post.id}
           id={post.id}
